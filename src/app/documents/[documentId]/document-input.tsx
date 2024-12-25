@@ -7,7 +7,6 @@ import { api } from '../../../../convex/_generated/api';
 import { useDebounce } from '@/hooks/use-debounce';
 import { toast } from 'sonner';
 import { useStatus } from '@liveblocks/react';
-import { stat } from 'fs';
 import { LoaderIcon } from 'lucide-react';
 
 interface DocumentInputProps {

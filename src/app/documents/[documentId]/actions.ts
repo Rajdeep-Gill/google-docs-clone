@@ -15,11 +15,19 @@ export async function getUsers() {
     organizationId: [sessionClaims?.org_id as string],
   });
 
+  const nameToNumber = (name: string) => {
+    const num = name
+      .split('')
+      .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return num;
+  };
+
   const users = response.data.map((user) => ({
     id: user.id,
     name:
       user.fullName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous',
     avatar: user.imageUrl,
+    color: `hsl(${nameToNumber(user.fullName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous') % 360}, 80%, 60%)`,
   }));
 
   return users;

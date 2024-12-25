@@ -29,7 +29,6 @@ import {
   RemoveFormattingIcon,
   StrikethroughIcon,
   TextIcon,
-  TrashIcon,
   UnderlineIcon,
   Undo2Icon,
 } from 'lucide-react';
