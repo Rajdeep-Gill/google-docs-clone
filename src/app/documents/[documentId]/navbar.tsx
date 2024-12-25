@@ -38,6 +38,7 @@ import { BsFilePdf } from 'react-icons/bs';
 import { useEditorStore } from '@/store/use-editor-store';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 
 const TableGrid = ({
   handleClick,
@@ -298,6 +299,15 @@ export const Navbar = () => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className='flex gap-3 items-center pl-6'>
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl='/'
+          afterLeaveOrganizationUrl='/'
+          afterSelectOrganizationUrl='/'
+          afterSelectPersonalUrl='/'
+        />
+        <UserButton />
       </div>
     </nav>
   );
