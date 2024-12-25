@@ -253,7 +253,7 @@ body {
   }
   /* Highlight styles */
   mark {
-    background-color: #FAF594;
+    background-color: #faf594;
     border-radius: 0.4rem;
     box-decoration-break: clone;
     padding: 0.1rem 0.3rem;
@@ -268,5 +268,28 @@ body {
       @apply underline;
     }
   }
+}
 
+/* For mobile */
+.floating-threads {
+  display: none;
+}
+
+/* For desktop */
+.anchored-threads {
+  display: block;
+  max-width: 300px;
+  width: 100%;
+  position: absolute;
+  right: 12px;
+}
+
+@media (max-width: 640px) {
+  .floating-threads {
+    display: block;
+  }
+
+  .anchored-threads {
+    display: none;
+  }
 }

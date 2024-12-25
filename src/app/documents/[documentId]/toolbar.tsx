@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { useEditorStore } from "@/store/use-editor-store";
+import { cn } from '@/lib/utils';
+import { useEditorStore } from '@/store/use-editor-store';
 
-import { type Level } from "@tiptap/extension-heading";
-import { type ColorResult, SketchPicker, TwitterPicker } from "react-color";
+import { type Level } from '@tiptap/extension-heading';
+import { type ColorResult, SketchPicker, TwitterPicker } from 'react-color';
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
+} from '@/components/ui/dropdown-menu';
+import { Separator } from '@/components/ui/separator';
 
 import {
   AlignCenterIcon,
@@ -41,62 +41,63 @@ import {
   UnderlineIcon,
   Undo2Icon,
   UploadIcon,
-} from "lucide-react";
-import { useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 const LineHeightButton = () => {
   const { editor } = useEditorStore();
 
   const lineHeights = [
     {
-      label: "Default",
-      value: "normal",
+      label: 'Default',
+      value: 'normal',
     },
     {
-      label: "Single",
-      value: "1",
+      label: 'Single',
+      value: '1',
     },
     {
-      label: "1.15",
-      value: "1.15",
+      label: '1.15',
+      value: '1.15',
     },
     {
-      label: "1.5",
-      value: "1.5",
+      label: '1.5',
+      value: '1.5',
     },
     {
-      label: "Double",
-      value: "2",
-    }
+      label: 'Double',
+      value: '2',
+    },
   ];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <ListCollapseIcon className="size-4" />
+        <button className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+          <ListCollapseIcon className='size-4' />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+      <DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
         {lineHeights.map(({ label, value }) => (
           <button
             key={value}
             onClick={() => editor?.chain().focus().setLineHeight(value).run()}
             className={cn(
-              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-              editor?.getAttributes("paragraph").lineHeight === value && "bg-neutral-200/80"
+              'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
+              editor?.getAttributes('paragraph').lineHeight === value &&
+                'bg-neutral-200/80'
             )}
           >
-            <span className="text-sm">{label}</span>
+            <span className='text-sm'>{label}</span>
           </button>
         ))}
       </DropdownMenuContent>
@@ -107,11 +108,11 @@ const LineHeightButton = () => {
 const FontSizeButton = () => {
   const { editor } = useEditorStore();
 
-  const currentFontSize = editor?.getAttributes("textStyle").fontSize
-    ? editor?.getAttributes("textStyle").fontSize.replace("px", "")
-    : "16";
+  const currentFontSize = editor?.getAttributes('textStyle').fontSize
+    ? editor?.getAttributes('textStyle').fontSize.replace('px', '')
+    : '16';
 
-  const [fontSize, setFontSize] = useState("");
+  const [fontSize, setFontSize] = useState('');
 
   useEffect(() => {
     setFontSize(currentFontSize);
@@ -139,7 +140,7 @@ const FontSizeButton = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault();
       updateFontSize(inputValue);
       setIsEditing(false);
@@ -160,21 +161,21 @@ const FontSizeButton = () => {
   };
 
   return (
-    <div className="flex items-center gap-x-0.5">
+    <div className='flex items-center gap-x-0.5'>
       <button
         onClick={decrement}
-        className="h-7 w-7 shrink-0 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80"
+        className='h-7 w-7 shrink-0 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80'
       >
-        <MinusIcon className="size-4" />
+        <MinusIcon className='size-4' />
       </button>
       {isEditing ? (
         <input
-          type="text"
+          type='text'
           value={inputValue}
           onChange={handleInputChange}
           onBlur={handleInputBlur}
           onKeyDown={handleKeyDown}
-          className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-[24px] bg-transparent focus:outline-none focus:ring-0"
+          className='h-7 w-10 text-sm text-center border border-neutral-400 rounded-[24px] bg-transparent focus:outline-none focus:ring-0'
         />
       ) : (
         <button
@@ -182,16 +183,16 @@ const FontSizeButton = () => {
             setIsEditing(true);
             setFontSize(currentFontSize);
           }}
-          className="h-7 w-10 text-sm border text-center border-neutral-400 rounded-[24px] bg-transparent cursor-text"
+          className='h-7 w-10 text-sm border text-center border-neutral-400 rounded-[24px] bg-transparent cursor-text'
         >
           {currentFontSize}
         </button>
       )}
       <button
         onClick={increment}
-        className="h-7 w-7 shrink-0 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80"
+        className='h-7 w-7 shrink-0 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80'
       >
-        <PlusIcon className="size-4" />
+        <PlusIcon className='size-4' />
       </button>
     </div>
   );
@@ -202,15 +203,15 @@ const ListButton = () => {
 
   const lists = [
     {
-      label: "Bullet List",
+      label: 'Bullet List',
       icon: ListIcon,
-      isActive: () => editor?.isActive("bulletList"),
+      isActive: () => editor?.isActive('bulletList'),
       onClick: () => editor?.chain().focus().toggleBulletList().run(),
     },
     {
-      label: "Ordered List",
+      label: 'Ordered List',
       icon: ListOrderedIcon,
-      isActive: () => editor?.isActive("orderedList"),
+      isActive: () => editor?.isActive('orderedList'),
       onClick: () => editor?.chain().focus().toggleOrderedList().run(),
     },
   ];
@@ -218,22 +219,22 @@ const ListButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <ListIcon className="size-4" />
+        <button className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+          <ListIcon className='size-4' />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+      <DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
         {lists.map(({ label, icon: Icon, onClick, isActive }) => (
           <button
             key={label}
             onClick={onClick}
             className={cn(
-              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-              isActive() && "bg-neutral-200/80"
+              'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
+              isActive() && 'bg-neutral-200/80'
             )}
           >
-            <Icon className="size-4" />
-            <span className="text-sm">{label}</span>
+            <Icon className='size-4' />
+            <span className='text-sm'>{label}</span>
           </button>
         ))}
       </DropdownMenuContent>
@@ -246,46 +247,46 @@ const AlignButton = () => {
 
   const alignments = [
     {
-      label: "Align Left",
+      label: 'Align Left',
       icon: AlignLeftIcon,
-      value: "left",
+      value: 'left',
     },
     {
-      label: "Align Center",
+      label: 'Align Center',
       icon: AlignCenterIcon,
-      value: "center",
+      value: 'center',
     },
     {
-      label: "Align Right",
+      label: 'Align Right',
       icon: AlignRightIcon,
-      value: "right",
+      value: 'right',
     },
     {
-      label: "Justify",
+      label: 'Justify',
       icon: AlignJustifyIcon,
-      value: "justify",
+      value: 'justify',
     },
   ];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <AlignLeftIcon className="size-4" />
+        <button className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+          <AlignLeftIcon className='size-4' />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+      <DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
         {alignments.map(({ label, icon: Icon, value }) => (
           <button
             key={value}
             onClick={() => editor?.chain().focus().setTextAlign(value).run()}
             className={cn(
-              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-              editor?.isActive({ textAlign: value }) && "bg-neutral-200/80"
+              'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
+              editor?.isActive({ textAlign: value }) && 'bg-neutral-200/80'
             )}
           >
-            <Icon className="size-4" />
-            <span className="text-sm">{label}</span>
+            <Icon className='size-4' />
+            <span className='text-sm'>{label}</span>
           </button>
         ))}
       </DropdownMenuContent>
@@ -297,16 +298,16 @@ const ImageButton = () => {
   const { editor } = useEditorStore();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState('');
 
   const onChange = (src: string) => {
     editor?.chain().focus().setImage({ src }).run();
   };
 
   const onUpload = () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
     input.onchange = (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
 
@@ -321,7 +322,7 @@ const ImageButton = () => {
   const handleImageUrlSubmit = () => {
     if (imageUrl) {
       onChange(imageUrl);
-      setImageUrl("");
+      setImageUrl('');
       setIsDialogOpen(false);
     }
   };
@@ -330,17 +331,17 @@ const ImageButton = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-            <ImageIcon className="size-4" />
+          <button className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+            <ImageIcon className='size-4' />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem onClick={onUpload}>
-            <UploadIcon className="size-4 mr-2" />
+            <UploadIcon className='size-4 mr-2' />
             Upload
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
-            <SearchIcon className="size-4 mr-2" />
+            <SearchIcon className='size-4 mr-2' />
             Paste URL
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -353,9 +354,9 @@ const ImageButton = () => {
           <Input
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            placeholder="Insert image URL"
+            placeholder='Insert image URL'
             onKeyDown={(e) => {
-              if (e.key === "Enter") handleImageUrlSubmit();
+              if (e.key === 'Enter') handleImageUrlSubmit();
             }}
           />
           <DialogFooter>
@@ -370,33 +371,33 @@ const ImageButton = () => {
 const LinkButton = () => {
   const { editor } = useEditorStore();
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const onChange = (href: string) => {
-    editor?.chain().focus().extendMarkRange("link").setLink({ href }).run();
-    setValue("");
+    editor?.chain().focus().extendMarkRange('link').setLink({ href }).run();
+    setValue('');
   };
 
   return (
     <DropdownMenu
       onOpenChange={(open) => {
         if (open) {
-          setValue(editor?.getAttributes("link").href || "");
+          setValue(editor?.getAttributes('link').href || '');
         }
       }}
     >
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <Link2Icon className="size-4" style={{ color: value }} />
+        <button className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+          <Link2Icon className='size-4' style={{ color: value }} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
+      <DropdownMenuContent className='p-2.5 flex items-center gap-x-2'>
         <Input
-          placeholder="https://example.com"
+          placeholder='https://example.com'
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <Button onClick={() => onChange(value)} className="h-7 px-3">
+        <Button onClick={() => onChange(value)} className='h-7 px-3'>
           Apply
         </Button>
       </DropdownMenuContent>
@@ -407,7 +408,7 @@ const LinkButton = () => {
 const HighlightColorButton = () => {
   const { editor } = useEditorStore();
 
-  const value = editor?.getAttributes("highlight").color || "#000000";
+  const value = editor?.getAttributes('highlight').color || '#000000';
 
   const onChange = (color: ColorResult) => {
     editor?.chain().focus().setHighlight({ color: color.hex }).run();
@@ -416,11 +417,11 @@ const HighlightColorButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <HighlighterIcon className="size-4" style={{ color: value }} />
+        <button className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+          <HighlighterIcon className='size-4' style={{ color: value }} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-0">
+      <DropdownMenuContent className='p-0'>
         <TwitterPicker color={value} onChange={onChange} />
       </DropdownMenuContent>
     </DropdownMenu>
@@ -429,7 +430,7 @@ const HighlightColorButton = () => {
 
 const TextColorButton = () => {
   const { editor } = useEditorStore();
-  const value = editor?.getAttributes("textStyle").color || "#000000";
+  const value = editor?.getAttributes('textStyle').color || '#000000';
 
   const onChange = (color: ColorResult) => {
     editor?.chain().focus().setColor(color.hex).run();
@@ -438,15 +439,15 @@ const TextColorButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <span className="text-xs">A</span>
+        <button className='h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+          <span className='text-xs'>A</span>
           <div
-            className="h-0.5 w-full rounded-full"
+            className='h-0.5 w-full rounded-full'
             style={{ backgroundColor: value }}
           />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-0">
+      <DropdownMenuContent className='p-0'>
         <SketchPicker color={value} onChange={onChange} />
       </DropdownMenuContent>
     </DropdownMenu>
@@ -457,12 +458,12 @@ const HeadingLevelButton = () => {
   const { editor } = useEditorStore();
 
   const headings = [
-    { label: "Normal text", value: 0, fontSize: "16px" },
-    { label: "Heading 1", value: 1, fontSize: "32px" },
-    { label: "Heading 2", value: 2, fontSize: "24px" },
-    { label: "Heading 3", value: 3, fontSize: "20px" },
-    { label: "Heading 4", value: 4, fontSize: "18px" },
-    { label: "Heading 5", value: 5, fontSize: "16px" },
+    { label: 'Normal text', value: 0, fontSize: '16px' },
+    { label: 'Heading 1', value: 1, fontSize: '32px' },
+    { label: 'Heading 2', value: 2, fontSize: '24px' },
+    { label: 'Heading 3', value: 3, fontSize: '20px' },
+    { label: 'Heading 4', value: 4, fontSize: '18px' },
+    { label: 'Heading 5', value: 5, fontSize: '16px' },
   ];
 
   const getCurrentHeading = () => {
@@ -471,27 +472,27 @@ const HeadingLevelButton = () => {
         return `Heading ${level}`;
       }
     }
-    return "Normal text";
+    return 'Normal text';
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <span className="truncate">{getCurrentHeading()}</span>
-          <ChevronDownIcon className="ml-2 size-4 shrink-0" />
+        <button className='h-7 min-w-7 shrink-0 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
+          <span className='truncate'>{getCurrentHeading()}</span>
+          <ChevronDownIcon className='ml-2 size-4 shrink-0' />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-1 flex flex-col ">
+      <DropdownMenuContent className='p-1 flex flex-col '>
         {headings.map(({ label, value, fontSize }) => (
           <button
             key={value}
             style={{ fontSize }}
             className={cn(
-              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-              (value === 0 && !editor?.isActive("heading")) ||
-                (editor?.isActive("heading", { level: value }) &&
-                  "bg-neutral-200/80")
+              'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
+              (value === 0 && !editor?.isActive('heading')) ||
+                (editor?.isActive('heading', { level: value }) &&
+                  'bg-neutral-200/80')
             )}
             onClick={() => {
               if (value === 0) {
@@ -517,43 +518,43 @@ const FontFamilyButton = () => {
   const { editor } = useEditorStore();
 
   const fonts = [
-    { label: "Arial", value: "Arial" },
-    { label: "Helvetica", value: "Helvetica" },
-    { label: "Times New Roman", value: "Times New Roman" },
-    { label: "Courier New", value: "Courier New" },
-    { label: "Verdana", value: "Verdana" },
-    { label: "Georgia", value: "Georgia" },
+    { label: 'Arial', value: 'Arial' },
+    { label: 'Helvetica', value: 'Helvetica' },
+    { label: 'Times New Roman', value: 'Times New Roman' },
+    { label: 'Courier New', value: 'Courier New' },
+    { label: 'Verdana', value: 'Verdana' },
+    { label: 'Georgia', value: 'Georgia' },
   ];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 w-[120px] shrink-0 flex items-center justify-between rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+        <button className='h-7 w-[120px] shrink-0 flex items-center justify-between rounded-[24px] hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'>
           <span
-            className="truncate"
+            className='truncate'
             style={{
               fontFamily:
-                editor?.getAttributes("textStyle").fontFamily || "Arial",
+                editor?.getAttributes('textStyle').fontFamily || 'Arial',
             }}
           >
-            {editor?.getAttributes("textStyle").fontFamily || "Arial"}
+            {editor?.getAttributes('textStyle').fontFamily || 'Arial'}
           </span>
-          <ChevronDownIcon className="ml-2 size-4 shrink-0" />
+          <ChevronDownIcon className='ml-2 size-4 shrink-0' />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+      <DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
         {fonts.map(({ label, value }) => (
           <button
             key={value}
             className={cn(
-              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-              editor?.getAttributes("textStyle").fontFamily === value &&
-                "bg-neutral-200/80"
+              'flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80',
+              editor?.getAttributes('textStyle').fontFamily === value &&
+                'bg-neutral-200/80'
             )}
             style={{ fontFamily: value }}
             onClick={() => editor?.chain().focus().setFontFamily(value).run()}
           >
-            <span className="text-sm">{label}</span>
+            <span className='text-sm'>{label}</span>
           </button>
         ))}
       </DropdownMenuContent>
@@ -576,11 +577,11 @@ const ToolbarButton = ({
     <button
       onClick={onClick}
       className={cn(
-        "text-sm h-7 min-w-7 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80",
-        isActive && "bg-neutral-200/80"
+        'text-sm h-7 min-w-7 flex items-center justify-center rounded-[24px] hover:bg-neutral-200/80',
+        isActive && 'bg-neutral-200/80'
       )}
     >
-      <Icon className="size-4" />
+      <Icon className='size-4' />
     </button>
   );
 };
@@ -596,28 +597,28 @@ export const Toolbar = () => {
   }[][] = [
     [
       {
-        label: "Undo",
+        label: 'Undo',
         icon: Undo2Icon,
         onClick: () => editor?.chain().focus().undo().run(),
       },
       {
-        label: "Redo",
+        label: 'Redo',
         icon: Redo2Icon,
         onClick: () => editor?.chain().focus().redo().run(),
       },
       {
-        label: "Print",
+        label: 'Print',
         icon: PrinterIcon,
         onClick: () => window.print(),
       },
       {
-        label: "Spell Check",
+        label: 'Spell Check',
         icon: SpellCheckIcon,
         onClick: () => {
-          const current = editor?.view.dom.getAttribute("spellcheck");
+          const current = editor?.view.dom.getAttribute('spellcheck');
           editor?.view.dom.setAttribute(
-            "spellcheck",
-            current === "false" ? "true" : "false"
+            'spellcheck',
+            current === 'false' ? 'true' : 'false'
           );
           editor?.chain().focus();
         },
@@ -625,39 +626,39 @@ export const Toolbar = () => {
     ],
     [
       {
-        label: "Bold",
+        label: 'Bold',
         icon: BoldIcon,
-        isActive: editor?.isActive("bold"),
+        isActive: editor?.isActive('bold'),
         onClick: () => editor?.chain().focus().toggleBold().run(),
       },
       {
-        label: "Italic",
+        label: 'Italic',
         icon: ItalicIcon,
-        isActive: editor?.isActive("italic"),
+        isActive: editor?.isActive('italic'),
         onClick: () => editor?.chain().focus().toggleItalic().run(),
       },
       {
-        label: "Underline",
+        label: 'Underline',
         icon: UnderlineIcon,
-        isActive: editor?.isActive("underline"),
+        isActive: editor?.isActive('underline'),
         onClick: () => editor?.chain().focus().toggleUnderline().run(),
       },
     ],
     [
       {
-        label: "Comments",
+        label: 'Comments',
         icon: MessageSquarePlusIcon,
-        onClick: () => console.log("TODO: Comments"),
-        isActive: false, //enable when comments are implemented
+        onClick: () => editor?.chain().focus().addPendingComment().run(),
+        isActive: editor?.isActive('liveblocksCommentMark'),
       },
       {
-        label: "List Todo",
+        label: 'List Todo',
         icon: ListTodoIcon,
         onClick: () => editor?.chain().focus().toggleTaskList().run(),
-        isActive: editor?.isActive("taskList"),
+        isActive: editor?.isActive('taskList'),
       },
       {
-        label: "Remove Formatting",
+        label: 'Remove Formatting',
         icon: RemoveFormattingIcon,
         onClick: () => editor?.chain().focus().unsetAllMarks().run(),
       },
@@ -665,23 +666,23 @@ export const Toolbar = () => {
   ];
 
   return (
-    <div className="bg-[#F1F4F9] px-2.5 p-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto">
+    <div className='bg-[#F1F4F9] px-2.5 p-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto'>
       {sections[0].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
-      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+      <Separator orientation='vertical' className='h-6 bg-neutral-300' />
       <FontFamilyButton />
-      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+      <Separator orientation='vertical' className='h-6 bg-neutral-300' />
       <HeadingLevelButton />
-      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+      <Separator orientation='vertical' className='h-6 bg-neutral-300' />
       <FontSizeButton />
-      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+      <Separator orientation='vertical' className='h-6 bg-neutral-300' />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
       <TextColorButton />
       <HighlightColorButton />
-      <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+      <Separator orientation='vertical' className='h-6 bg-neutral-300' />
       <LinkButton />
       <ImageButton />
       <AlignButton />
