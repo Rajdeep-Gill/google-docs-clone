@@ -40,6 +40,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { Avatars } from './avatars';
+import { Inbox } from './inbox';
 
 const TableGrid = ({
   handleClick,
@@ -304,6 +305,7 @@ export const Navbar = () => {
 
       <div className='flex gap-3 items-center pl-6'>
         <Avatars />
+        <Inbox />
         <OrganizationSwitcher
           afterCreateOrganizationUrl='/'
           afterLeaveOrganizationUrl='/'
